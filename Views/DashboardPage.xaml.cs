@@ -12,6 +12,7 @@ namespace EventAssetTracker.Views
             _viewModel = viewModel;
             BindingContext = _viewModel;
         }
+        
 
         protected override async void OnAppearing()
         {

@@ -128,10 +128,24 @@ namespace EventAssetTracker.ViewModels
             if (IsBusy)
                 return;
 
-            if (!ValidarCampos(out string mensajeError))
+            if (!ValidarCampos(out string mensajeError))    
             {
-                await Shell.Current.DisplayAlert("Datos incompletos", mensajeError, "OK");
-                return;
+            await Shell.Current.DisplayAlert("Datos incompletos", mensajeError, "OK");
+            return;
+            }
+
+            var activos = await _databaseService.ObtenerActivosAsync();
+            bool codigoDuplicado = activos.Any(a =>
+            a.CodigoInventario.Trim().ToLower() == CodigoInventario.Trim().ToLower() &&
+            a.Id != (_activoOriginal?.Id ?? 0));
+
+            if (codigoDuplicado)
+            {       
+            await Shell.Current.DisplayAlert(
+            "Código duplicado",
+            $"Ya existe un activo con el código '{CodigoInventario}'. Por favor usa un código diferente.",
+            "OK");
+            return;
             }
 
             try
@@ -142,7 +156,6 @@ namespace EventAssetTracker.ViewModels
 
                 if (EsEdicion && _activoOriginal is not null)
                 {
-                    // Actualizamos el objeto original para no perder EstadoActual ni FechaUltimoCambio
                     activo = _activoOriginal;
                     activo.Nombre = Nombre;
                     activo.CodigoInventario = CodigoInventario;
@@ -151,7 +164,6 @@ namespace EventAssetTracker.ViewModels
                 }
                 else
                 {
-                    // REGLA DE NEGOCIO: al crear, estado inicial = En Uso, sin fecha de cambio
                     activo = new Activo
                     {
                         Nombre = Nombre,

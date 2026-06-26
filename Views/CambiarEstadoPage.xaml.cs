@@ -1,9 +1,13 @@
-namespace EventAssetTracker.Views;
+using EventAssetTracker.ViewModels;
 
-public partial class CambiarEstadoPage : ContentPage
+namespace EventAssetTracker.Views
 {
-	public CambiarEstadoPage()
-	{
-		InitializeComponent();
-	}
+    public partial class CambiarEstadoPage : ContentPage
+    {
+        public CambiarEstadoPage(CambiarEstadoViewModel viewModel)
+        {
+            InitializeComponent();
+            BindingContext = viewModel;
+        }
+    }
 }
