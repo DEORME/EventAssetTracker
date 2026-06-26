@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="EventAssetTracker.Views.ListaActivosPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Activos"
+    BackgroundColor="#F5F5F5">
+
+    <Grid RowDefinitions="Auto,*" Padding="20" RowSpacing="16">
+
+        <VerticalStackLayout Grid.Row="0" Spacing="10">
+            <Label
+                Text="Gestión de Activos"
+                FontSize="26"
+                FontAttributes="Bold"
+                TextColor="#1E2A38" />
+
+            <Button
+                Text="+ Agregar activo"
+                Command="{Binding NuevoActivoCommand}"
+                BackgroundColor="#1E2A38"
+                TextColor="White"
+                FontAttributes="Bold"
+                CornerRadius="12"
+                HeightRequest="48" />
+        </VerticalStackLayout>
+
+        <CollectionView
+            Grid.Row="1"
+            ItemsSource="{Binding Activos}"
+            SelectionMode="None">
+
+            <CollectionView.EmptyView>
+                <VerticalStackLayout Padding="20" Spacing="10" HorizontalOptions="Center" VerticalOptions="Center">
+                    <Label
+                        Text="No hay activos registrados."
+                        FontSize="18"
+                        TextColor="#777777"
+                        HorizontalTextAlignment="Center" />
+                    <Label
+                        Text="Presiona Agregar activo para crear el primer registro."
+                        FontSize="14"
+                        TextColor="#999999"
+                        HorizontalTextAlignment="Center" />
+                </VerticalStackLayout>
+            </CollectionView.EmptyView>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Border
+                        BackgroundColor="White"
+                        Stroke="#DDDDDD"
+                        StrokeThickness="1"
+                        Padding="16"
+                        Margin="0,0,0,12">
+
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="14" />
+                        </Border.StrokeShape>
+
+                        <VerticalStackLayout Spacing="8">
+
+                            <Label
+                                Text="{Binding Nombre}"
+                                FontSize="20"
+                                FontAttributes="Bold"
+                                TextColor="#1E2A38" />
+
+                            <Label
+                                Text="{Binding CodigoInventario, StringFormat='Código: {0}'}"
+                                FontSize="14"
+                                TextColor="#555555" />
+
+                            <Label
+                                Text="{Binding Ubicacion, StringFormat='Ubicación: {0}'}"
+                                FontSize="14"
+                                TextColor="#555555" />
+
+                            <Label
+                                Text="{Binding Responsable, StringFormat='Responsable: {0}'}"
+                                FontSize="14"
+                                TextColor="#555555" />
+
+                            <Label
+                                Text="{Binding EstadoActual, StringFormat='Estado: {0}'}"
+                                FontSize="15"
+                                FontAttributes="Bold"
+                                TextColor="#F4A261" />
+
+                            <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto" ColumnSpacing="8" RowSpacing="8" Margin="0,8,0,0">
+
+                                <Button
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    Text="Editar"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.EditarActivoCommand}"
+                                    CommandParameter="{Binding .}"
+                                    BackgroundColor="#2A9D8F"
+                                    TextColor="White"
+                                    CornerRadius="10" />
+
+                                <Button
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    Text="Eliminar"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.EliminarActivoCommand}"
+                                    CommandParameter="{Binding .}"
+                                    BackgroundColor="#E76F51"
+                                    TextColor="White"
+                                    CornerRadius="10" />
+
+                                <Button
+                                    Grid.Row="1"
+                                    Grid.Column="0"
+                                    Text="Cambiar estado"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.CambiarEstadoCommand}"
+                                    CommandParameter="{Binding .}"
+                                    BackgroundColor="#F4A261"
+                                    TextColor="White"
+                                    CornerRadius="10" />
+
+                                <Button
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    Text="Historial"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.VerHistorialCommand}"
+                                    CommandParameter="{Binding .}"
+                                    BackgroundColor="#1E2A38"
+                                    TextColor="White"
+                                    CornerRadius="10" />
+
+                            </Grid>
+
+                        </VerticalStackLayout>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </Grid>
+</ContentPage>

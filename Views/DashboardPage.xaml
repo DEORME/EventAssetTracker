@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="EventAssetTracker.Views.DashboardPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Dashboard"
+    BackgroundColor="#F5F5F5">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="20">
+
+            <VerticalStackLayout Spacing="4" HorizontalOptions="Center">
+                <Label
+                    Text="Bright Events Co."
+                    FontSize="28"
+                    FontAttributes="Bold"
+                    TextColor="#1E2A38"
+                    HorizontalTextAlignment="Center" />
+
+                <Label
+                    Text="Event Asset Tracker"
+                    FontSize="18"
+                    TextColor="#F4A261"
+                    HorizontalTextAlignment="Center" />
+            </VerticalStackLayout>
+
+            <Border
+                BackgroundColor="White"
+                Stroke="#DDDDDD"
+                StrokeThickness="1"
+                Padding="20">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="16" />
+                </Border.StrokeShape>
+
+                <VerticalStackLayout Spacing="12">
+                    <Label
+                        Text="Resumen del inventario"
+                        FontSize="22"
+                        FontAttributes="Bold"
+                        TextColor="#1E2A38" />
+
+                    <Label
+                        Text="{Binding TotalActivos, StringFormat='Total de activos: {0}'}"
+                        FontSize="18"
+                        TextColor="#333333" />
+
+                    <Label
+                        Text="{Binding TotalEnUso, StringFormat='En uso: {0}'}"
+                        FontSize="18"
+                        TextColor="#2A9D8F" />
+
+                    <Label
+                        Text="{Binding TotalEnMantenimiento, StringFormat='En mantenimiento: {0}'}"
+                        FontSize="18"
+                        TextColor="#F4A261" />
+
+                    <Label
+                        Text="{Binding TotalFueraDeServicio, StringFormat='Fuera de servicio: {0}'}"
+                        FontSize="18"
+                        TextColor="#E76F51" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Button
+                Text="Gestionar activos"
+                Command="{Binding IrAGestionActivosCommand}"
+                BackgroundColor="#1E2A38"
+                TextColor="White"
+                FontAttributes="Bold"
+                CornerRadius="12"
+                HeightRequest="50" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

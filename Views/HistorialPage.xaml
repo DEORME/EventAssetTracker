@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="EventAssetTracker.Views.HistorialPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Historial"
+    BackgroundColor="#F5F5F5">
+
+    <Grid RowDefinitions="Auto,*" Padding="20" RowSpacing="16">
+
+        <VerticalStackLayout Grid.Row="0" Spacing="6">
+            <Label
+                Text="Historial de Cambios"
+                FontSize="26"
+                FontAttributes="Bold"
+                TextColor="#1E2A38" />
+
+            <Label
+                Text="{Binding NombreActivo}"
+                FontSize="18"
+                TextColor="#F4A261" />
+        </VerticalStackLayout>
+
+        <CollectionView
+            Grid.Row="1"
+            ItemsSource="{Binding Historial}"
+            SelectionMode="None">
+
+            <CollectionView.EmptyView>
+                <Label
+                    Text="Este activo aún no tiene cambios de estado registrados."
+                    FontSize="16"
+                    TextColor="#777777"
+                    HorizontalTextAlignment="Center"
+                    VerticalTextAlignment="Center" />
+            </CollectionView.EmptyView>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Border
+                        BackgroundColor="White"
+                        Stroke="#DDDDDD"
+                        StrokeThickness="1"
+                        Padding="16"
+                        Margin="0,0,0,12">
+
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="14" />
+                        </Border.StrokeShape>
+
+                        <VerticalStackLayout Spacing="8">
+
+                            <Label
+                                Text="{Binding EstadoAnterior, StringFormat='Estado anterior: {0}'}"
+                                FontSize="15"
+                                TextColor="#555555" />
+
+                            <Label
+                                Text="{Binding EstadoNuevo, StringFormat='Estado nuevo: {0}'}"
+                                FontSize="15"
+                                FontAttributes="Bold"
+                                TextColor="#1E2A38" />
+
+                            <Label
+                                Text="{Binding FechaCambio, StringFormat='Fecha: {0:dd/MM/yyyy hh:mm tt}'}"
+                                FontSize="14"
+                                TextColor="#777777" />
+
+                        </VerticalStackLayout>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </Grid>
+</ContentPage>
